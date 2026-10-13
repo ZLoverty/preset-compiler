@@ -4,20 +4,20 @@
 filesystem traversal, output paths, and database build provenance.
 
 `preset-compiler` owns the source model contract, profile inheritance
-resolution, BambuStudio compilation, compiler diagnostics, and artifact
+resolution, slicer compilation, compiler diagnostics, and artifact
 representation. It receives all profile/default/version inputs explicitly and
 does not inspect a `preset-db` checkout.
 
 The supported public entry point is:
 
 ```python
-from preset_compiler import BambuStudioCompiler, MaterialPreset
+from preset_compiler import OrcaSlicerCompiler, MaterialPreset
 
-compiler = BambuStudioCompiler(profile_set=profiles, defaults=defaults,
-                                version="02.08.02.60")
+compiler = OrcaSlicerCompiler(profile_set=profiles, defaults=defaults,
+                               version="2.2.0")
 artifact = compiler.compile(source)
 ```
 
-`artifact.config` is an in-memory representation. Serializing JSON and writing
-files remain caller responsibilities. BambuStudio is the only target in this
-phase; no plugin framework or second slicer is introduced.
+`artifact.config` is an in-memory representation. Serializing JSON/INI and
+writing files remain caller responsibilities. No plugin registry or slicer
+installation discovery is performed by the compiler.
